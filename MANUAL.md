@@ -29,6 +29,16 @@ Merge a branch into the current branch.
 
     gin merge some-feature
 
+### Log
+
+Show the commit log for the current branch.
+
+    gin log
+
+Show the commit log for another branch.
+
+    gin log some-feature
+
 ### Help
 
 Get a list of supported commands.

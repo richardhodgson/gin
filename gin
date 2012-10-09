@@ -73,12 +73,31 @@ case "$ACTION" in
         
         echo "svn merge -$BRANCH_REVISION:HEAD $REPO_PATH" | sh
         ;;
+    "log" )
+        
+        if [[ -z "$ARG1" ]]; then
+            CURRENT_BRANCH_NAME=`current_branch_name`
+            REPO_URL=`repo_path $CURRENT_BRANCH_NAME`
+        else
+
+            REPO_URL=`repo_path "$ARG1"`
+
+            SVNARGS=''
+            if [[ "$ARG1" != "trunk" ]]; then
+                SVNARGS='--stop-on-copy'
+            fi
+
+        fi
+
+        echo "svn log $SVNARGS $REPO_URL | less" | sh
+        ;;
     *)
         echo -e "usage: gin <command> [<args>]"
         echo -e "\n    Supported commands:\n"
         echo -e "\tbranch [<branchname>]\tCreate a branch or list branches for this project"
         echo -e "\tcheckout <branchname>\tSwitch to a branch for this project"
         echo -e "\tmerge <branchname>\tMerge <branchname> into the current branch"
+        echo -e "\tlog [<branchname>]\tShow the commit logs (for <branchname>)"
         echo -e "\n    Shortcuts:\n"
         echo -e "\tbranch\t\tbr"
         echo -e "\tcheckout\tco"
