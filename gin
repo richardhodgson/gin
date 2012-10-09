@@ -27,11 +27,21 @@ function repo_path {
     repo_root | xargs -i echo {}$REPO_PATH
 }
 
+function current_branch_name {
+    REPO_ROOT=`repo_root`
+    REPO_CURRENT=`repo_current`
+    echo "echo '$REPO_CURRENT' | sed -e 's%$REPO_ROOT%%' -e 's%branches/%%' | cut -c 2-" | sh
+}
+
 case "$ACTION" in
     "br"|"branch" )
 
         if [ -z "$ARG1" ]; then
-            repo_root | xargs -i echo {}/branches | xargs svn ls
+
+            CURRENT_BRANCH_NAME=`current_branch_name`
+            REPO_ROOT=`repo_root`
+            
+            echo "echo \"$REPO_ROOT\" | xargs -i echo {}/branches | xargs svn ls | sed -r -e 's%(.*)/%  \1%' -e 's/  $CURRENT_BRANCH_NAME/*\0/' -e 's/\*  /\* /' " | sh
         else
 
             REPO_CURRENT=`repo_current`
