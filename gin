@@ -41,6 +41,12 @@ case "$ACTION" in
             CURRENT_BRANCH_NAME=`current_branch_name`
             REPO_ROOT=`repo_root`
             
+            if [[ "$CURRENT_BRANCH_NAME" == "trunk" ]]; then
+                echo '* trunk'
+            else
+                echo '  trunk'
+            fi
+
             echo "echo \"$REPO_ROOT\" | xargs -i echo {}/branches | xargs svn ls | sed -r -e 's%(.*)/%  \1%' -e 's/  $CURRENT_BRANCH_NAME/*\0/' -e 's/\*  /\* /' " | sh
         else
 
@@ -48,7 +54,6 @@ case "$ACTION" in
             REPO_ROOT=`repo_root`
 
             echo "svn copy $REPO_CURRENT $REPO_ROOT/branches/$ARG1 -m 'Creating $ARG1 branch'" | sh
-
         fi
 
         ;;
