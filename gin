@@ -8,7 +8,7 @@ function repo_current {
 }
 
 function repo_root {
-    repo_current | sed -r -e's%/trunk|/branches/([a-z0-9]*$)%%i'
+    repo_current | sed -r -e's%/trunk|/branches/(.*$)%%i'
 }
 
 function repo_path {
