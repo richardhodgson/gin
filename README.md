@@ -34,7 +34,7 @@ Projects are checked out at either `trunk` or a directory under `branches`.
 
 ## Documentation
 
-See the [manual](MANUAL.md).
+See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md).
 
 ## Why is it named gin?
 
