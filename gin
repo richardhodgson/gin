@@ -1,0 +1,71 @@
+#!/bin/bash
+
+ACTION=$1
+ARG1=$2
+
+function repo_current {
+    svn info | grep 'URL:' | sed -e 's/URL\:\s//i'
+}
+
+function repo_root {
+    repo_current | sed -r -e's%/trunk|/branches/([a-z0-9]*$)%%i'
+}
+
+function repo_path {
+
+    if [ -z "$1" ]; then
+        echo -e "Specify the branch name or trunk"
+        exit 1
+    fi
+    
+    if [[ "$1" == "trunk" ]]; then
+        REPO_PATH="/trunk"
+    else
+        REPO_PATH="/branches/$1"
+    fi
+
+    repo_root | xargs -i echo {}$REPO_PATH
+}
+
+case "$ACTION" in
+    "br"|"branch" )
+
+        if [ -z "$ARG1" ]; then
+            repo_root | xargs -i echo {}/branches | xargs svn ls
+        else
+
+            REPO_CURRENT=`repo_current`
+            REPO_ROOT=`repo_root`
+
+            echo "svn copy $REPO_CURRENT $REPO_ROOT/branches/$ARG1 -m 'Creating $ARG1 branch'" | sh
+
+        fi
+
+        ;;
+    "co"|"checkout" )
+        repo_path "$ARG1" | xargs svn switch
+        ;;
+    "merge" )
+
+        if [[ `repo_path "$ARG1"` == `repo_current` ]]; then
+            echo "Already on branch '$ARG1', cannot merge to the same branch."
+            echo 'Try checking out a different branch first.'
+            exit 1
+        fi
+
+        REPO_PATH=`repo_path "$ARG1"`
+        BRANCH_REVISION=`echo $REPO_PATH | xargs svn log --stop-on-copy -r 1:HEAD --limit 1 | sed -n '2p' | sed -r -e 's/(^r[0-9]+)(.*)/\1/i'`
+        
+        echo "svn merge -$BRANCH_REVISION:HEAD $REPO_PATH" | sh
+        ;;
+    *)
+        echo -e "usage: gin <command> [<args>]"
+        echo -e "\n    Supported commands:\n"
+        echo -e "\tbranch [<branchname>]\tCreate a branch or list branches for this project"
+        echo -e "\tcheckout <branchname>\tSwitch to a branch for this project"
+        echo -e "\tmerge <branchname>\tMerge <branchname> into the current branch"
+        echo -e "\n    Shortcuts:\n"
+        echo -e "\tbranch\t\tbr"
+        echo -e "\tcheckout\tco"
+        ;;
+esac
