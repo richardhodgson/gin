@@ -36,6 +36,14 @@ Projects are checked out at either `trunk` or a directory under `branches`.
 
 See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md).
 
+## Why don't you just use Git?
+
+It's complicated.
+
+## Why don't you just use Gitsvn?
+
+That's more complicated. Whilst that means we can use Git locally, we'd still have to push back to the Subversion repo eventually. I'd rather just use Subversion, however I do like the Git command line API.
+
 ## Why is it named gin?
 
 Its only one letter different than `git` and I like gin.
