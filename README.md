@@ -32,6 +32,10 @@ Our projects follow this directory convention:
 
 Projects are checked out at either `trunk` or a directory under `branches`.
 
+## Documentation
+
+See the [manual](MANUAL.md).
+
 ## Why is it named gin?
 
 Its only one letter different than `git` and I like gin.
