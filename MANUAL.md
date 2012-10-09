@@ -39,6 +39,12 @@ Show the commit log for another branch.
 
     gin log some-feature
 
+### Diff
+
+Show changes between branches.
+
+    gin diff some-feature..trunk
+
 ### Help
 
 Get a list of supported commands.

@@ -2,6 +2,7 @@
 
 ACTION=$1
 ARG1=$2
+ARG2=$3
 
 function repo_current {
     svn info | grep 'URL:' | sed -e 's/URL\:\s//i'
@@ -91,15 +92,28 @@ case "$ACTION" in
 
         echo "svn log $SVNARGS $REPO_URL | less" | sh
         ;;
+    "df"|"diff" )
+        if [[ "$ARG1" =~ '\.\.' ]]; then
+            ARG2=`echo "$ARG1" | awk -F. '{print $3}'`
+            ARG1=`echo "$ARG1" | awk -F. '{print $1}'`
+        fi
+
+        ARG2=`repo_path "$ARG2"`
+        ARG1=`repo_path "$ARG1"`
+
+        echo "svn diff $ARG1 $ARG2 | less" | sh
+        ;;
     *)
         echo -e "usage: gin <command> [<args>]"
         echo -e "\n    Supported commands:\n"
-        echo -e "\tbranch [<branchname>]\tCreate a branch or list branches for this project"
-        echo -e "\tcheckout <branchname>\tSwitch to a branch for this project"
-        echo -e "\tmerge <branchname>\tMerge <branchname> into the current branch"
-        echo -e "\tlog [<branchname>]\tShow the commit logs (for <branchname>)"
+        echo -e "\tbranch [<branchname>]\t\t\tCreate a branch or list branches for this project"
+        echo -e "\tcheckout <branchname>\t\t\tSwitch to a branch for this project"
+        echo -e "\tmerge <branchname>\t\t\tMerge <branchname> into the current branch"
+        echo -e "\tlog [<branchname>]\t\t\tShow the commit logs (for <branchname>)"
+        echo -e "\tdiff <branchname> [<branchname>]\tShow changes between branches"
         echo -e "\n    Shortcuts:\n"
         echo -e "\tbranch\t\tbr"
         echo -e "\tcheckout\tco"
+        echo -e "\tcheckout\tdf"
         ;;
 esac
