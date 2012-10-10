@@ -71,7 +71,7 @@ case "$ACTION" in
         REPO_PATH=`repo_path "$ARG1"`
         BRANCH_REVISION=`echo $REPO_PATH | xargs svn log --stop-on-copy -r 1:HEAD --limit 1 | sed -n '2p' | sed -r -e 's/(^r[0-9]+)(.*)/\1/i'`
         
-        echo "svn merge -$BRANCH_REVISION:HEAD $REPO_PATH" | sh
+        echo "svn merge --accept postpone -$BRANCH_REVISION:HEAD $REPO_PATH" | sh
         ;;
     "log" )
         
