@@ -53,7 +53,7 @@ case "$ACTION" in
             REPO_CURRENT=`repo_current`
             REPO_ROOT=`repo_root`
 
-            echo "svn copy $REPO_CURRENT $REPO_ROOT/branches/$ARG1 -m 'Creating $ARG1 branch'" | sh
+            echo "svn copy $REPO_CURRENT $REPO_ROOT/branches/$ARG1 -m 'Creating $ARG1 branch' && echo \"Created '$REPO_ROOT/branches/$ARG1'\"" | sh
         fi
 
         ;;
