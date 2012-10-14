@@ -106,6 +106,7 @@ case "$ACTION" in
         echo "svn diff $ARG1 $ARG2 | less" | sh
         ;;
     *)
+        echo -e "Gin - a Git inspired client for Subversion (version $VERSION)\n"
         echo -e "usage: gin <command> [<args>]"
         echo -e "\n    Supported commands:\n"
         echo -e "\tbranch [<branchname>]\t\t\tCreate a branch or list branches for this project"
@@ -117,5 +118,6 @@ case "$ACTION" in
         echo -e "\tbranch\t\tbr"
         echo -e "\tcheckout\tco"
         echo -e "\tcheckout\tdf"
+        echo -e "\nSee https://github.com/richardhodgson/gin"
         ;;
 esac
