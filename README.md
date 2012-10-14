@@ -31,7 +31,7 @@ For example, branch from the trunk of `myproject` and switch to the new branch:
 
 Running `svn info` will now show the checkout has switched to `http://repo.com/path/to/myproject/branches/some-feature`.
 
-See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md) for more commands.
+See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md#gin---a-git-inspired-client-for-subversion) for more commands.
 
 ## Project structure
 
