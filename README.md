@@ -8,26 +8,37 @@ At work, we build new functionality in feature branches. With Subversion, this o
 
 Outside of work many of us use `git`, so creating a similar command line DSL makes sense.
 
+## Install
+
+Run the installer.
+
+    curl https://github.com/richardhodgson/gin/downloads/install.sh | sh
+
+The `gin` executable should now be in your `$PATH`.
+
 ## Usage
 
 Change into the root of your check out and call `gin` as you would `git`.
 
     gin <command>
 
-For example, check out the trunk of `myproject` and list the branches:
+For example, branch from the trunk of `myproject` and switch to the new branch:
 
     svn checkout http://repo.com/path/to/myproject/trunk myproject
     cd myproject
-    gin branch
+    gin branch some-feature
+    gin checkout some-feature
+
+Running `svn info` will now show the checkout has switched to `http://repo.com/path/to/myproject/branches/some-feature`.
 
 ## Project structure
 
-Our projects follow this directory convention:
+Projects follow a directory convention:
 
     projectName/
         branches/
-            some-branch/
-            another-branch/
+            some-feature/
+            another-feature/
         trunk/
 
 Projects are checked out at either `trunk` or a directory under `branches`.
