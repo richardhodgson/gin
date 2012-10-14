@@ -12,7 +12,7 @@ Outside of work many of us use `git`, so creating a similar command line DSL mak
 
 Run the installer.
 
-    curl https://raw.github.com/richardhodgson/gin/master/install.sh | bash
+    curl https://raw.github.com/richardhodgson/gin/master/install | bash
 
 The `gin` executable should now be in your `$PATH`.
 
