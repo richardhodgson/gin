@@ -31,6 +31,8 @@ For example, branch from the trunk of `myproject` and switch to the new branch:
 
 Running `svn info` will now show the checkout has switched to `http://repo.com/path/to/myproject/branches/some-feature`.
 
+See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md) for more commands.
+
 ## Project structure
 
 Projects follow a directory convention:
@@ -42,10 +44,6 @@ Projects follow a directory convention:
         trunk/
 
 Projects are checked out at either `trunk` or a directory under `branches`.
-
-## Documentation
-
-See the [manual](https://github.com/richardhodgson/gin/blob/master/MANUAL.md).
 
 ## Why don't you just use Git?
 
