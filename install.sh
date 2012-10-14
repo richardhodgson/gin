@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=0.0.3
+VERSION=0.0.4
 
 mkdir -p /tmp/gin
 curl -L "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C /tmp/gin
