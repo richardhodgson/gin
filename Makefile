@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 
 release:
-	echo "Enter the version to release:" && \
+	@echo "Enter the version to release:" && \
 	read NEWVERSION && \
 	echo "New version is $$NEWVERSION. Confirm (ctrl+c to cancel):" && \
 	read && \
