@@ -2,10 +2,14 @@
 
 VERSION=0.0.6
 
-mkdir -p /tmp/gin
-curl -L "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C /tmp/gin
-cp /tmp/gin/richardhodgson-gin-*/gin /usr/local/bin/gin
-chmod +x /usr/local/bin/gin
-rm -fr /tmp/gin/richardhodgson-gin-*
+TEMPDIR=/tmp/gin
+INSTALLDIR=$HOME/bin
 
-echo "Gin (version $VERSION) installed."
+mkdir -p $INSTALLDIR
+mkdir -p $TEMPDIR
+curl -L "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C $TEMPDIR
+cp $TEMPDIR/richardhodgson-gin-*/gin $INSTALLDIR/gin
+chmod +x $INSTALLDIR/gin
+rm -fr $TEMPDIR
+
+echo "Gin (version $VERSION) installed to $INSTALLDIR/gin."
