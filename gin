@@ -6,12 +6,20 @@ ACTION=$1
 ARG1=$2
 ARG2=$3
 
+# decide on the correct extended regular expressions argument
+OS=`uname -s`
+if [[ "$OS" == "Darwin"  ]]; then
+    SEDR='-E'
+else
+    SEDR='-r'
+fi
+
 function repo_current {
-    svn info | grep 'URL:' | sed -e 's/URL\:\s//i'
+    svn info | grep 'URL:' | sed -e 's/URL\: //'
 }
 
 function repo_root {
-    repo_current | sed -r -e's%/trunk|/branches/(.*$)%%i'
+    repo_current | sed $SEDR -e's%/trunk|/branches/(.*$)%%'
 }
 
 function repo_path {
@@ -27,7 +35,7 @@ function repo_path {
         REPO_PATH="/branches/$1"
     fi
 
-    repo_root | xargs -i echo {}$REPO_PATH
+    echo `repo_root`$REPO_PATH
 }
 
 function current_branch_name {
@@ -50,7 +58,7 @@ case "$ACTION" in
                 echo '  trunk'
             fi
 
-            echo "echo \"$REPO_ROOT\" | xargs -i echo {}/branches | xargs svn ls | sed -r -e 's%(.*)/%  \1%' -e 's/  $CURRENT_BRANCH_NAME/*\0/' -e 's/\*  /\* /' " | sh
+            echo "echo \"$REPO_ROOT/branches\" | xargs svn ls | sed $SEDR -e 's%(.*)/%  \1%' -e 's/  $CURRENT_BRANCH_NAME/*\0/' -e 's/\*  /\* /' " | sh
         else
 
             REPO_CURRENT=`repo_current`
@@ -72,7 +80,7 @@ case "$ACTION" in
         fi
 
         REPO_PATH=`repo_path "$ARG1"`
-        BRANCH_REVISION=`echo $REPO_PATH | xargs svn log --stop-on-copy -r 1:HEAD --limit 1 | sed -n '2p' | sed -r -e 's/(^r[0-9]+)(.*)/\1/i'`
+        BRANCH_REVISION=`echo $REPO_PATH | xargs svn log --stop-on-copy -r 1:HEAD --limit 1 | sed -n '2p' | sed $SEDR -e 's/(^r[0-9]+)(.*)/\1/i'`
         
         echo "svn merge --accept postpone -$BRANCH_REVISION:HEAD $REPO_PATH" | sh
         ;;
