@@ -103,15 +103,22 @@ case "$ACTION" in
         echo "svn log $SVNARGS $REPO_URL | less" | sh
         ;;
     "df"|"diff" )
-        if [[ "$ARG1" =~ '\.\.' ]]; then
-            ARG2=`echo "$ARG1" | awk -F. '{print $3}'`
-            ARG1=`echo "$ARG1" | awk -F. '{print $1}'`
+
+        LEFT=''
+        RIGHT=''
+        
+        if [[ -n "$ARG1"  ]]; then
+
+            if [[ "$ARG1" =~ ".." ]]; then
+                ARG2=`echo "$ARG1" | awk -F. '{print $3}'`
+                ARG1=`echo "$ARG1" | awk -F. '{print $1}'`
+            fi
+
+            RIGHT=`repo_path "$ARG2"`
+            LEFT=`repo_path "$ARG1"`
         fi
 
-        ARG2=`repo_path "$ARG2"`
-        ARG1=`repo_path "$ARG1"`
-
-        echo "svn diff $ARG1 $ARG2 | less" | sh
+        echo "svn diff $LEFT $RIGHT | less" | sh
         ;;
     *)
         echo -e "Gin - a Git inspired client for Subversion (version $VERSION)\n"

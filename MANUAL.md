@@ -41,6 +41,10 @@ Show the commit log for another branch.
 
 ### Diff
 
+Show uncommitted changes.
+
+    gin diff
+
 Show changes between branches.
 
     gin diff some-feature..trunk
