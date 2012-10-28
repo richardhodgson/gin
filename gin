@@ -58,7 +58,7 @@ case "$ACTION" in
                 echo '  trunk'
             fi
 
-            echo "echo \"$REPO_ROOT/branches\" | xargs svn ls | sed $SEDR -e 's%(.*)/%  \1%' -e 's/  $CURRENT_BRANCH_NAME/*\0/' -e 's/\*  /\* /' " | sh
+            echo "echo \"$REPO_ROOT/branches\" | xargs svn ls | sed $SEDR -e 's%(.*)/%  \1%' -e 's/(.*)($CURRENT_BRANCH_NAME)/* \2/' " | sh
         else
 
             REPO_CURRENT=`repo_current`
