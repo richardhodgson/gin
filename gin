@@ -106,7 +106,7 @@ case "$ACTION" in
 
         LEFT=''
         RIGHT=''
-        
+
         if [[ -n "$ARG1"  ]]; then
 
             if [[ "$ARG1" =~ ".." ]]; then
@@ -118,7 +118,16 @@ case "$ACTION" in
             LEFT=`repo_path "$ARG1"`
         fi
 
-        echo "svn diff $LEFT $RIGHT | less" | sh
+        STTY_ROWS=`stty size | cut -d " " -f 1`
+        DIFF=`svn diff $LEFT $RIGHT`
+        DIFF_ROWS=`echo "$DIFF" | wc -l | tr -d ' '`
+
+        LESS=''
+        if [[ $DIFF_ROWS -ge $STTY_ROWS ]]; then
+            LESS='| less'
+        fi
+
+        echo "svn diff $LEFT $RIGHT $LESS" | sh
         ;;
     *)
         echo -e "Gin - a Git inspired client for Subversion (version $VERSION)\n"
