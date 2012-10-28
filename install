@@ -7,7 +7,8 @@ INSTALLDIR=$HOME/bin
 
 mkdir -p $INSTALLDIR
 mkdir -p $TEMPDIR
-curl -L "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C $TEMPDIR
+echo "Downloading Gin v$VERSION..."
+curl --location --progress-bar "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C $TEMPDIR
 cp $TEMPDIR/richardhodgson-gin-*/gin $INSTALLDIR/gin
 chmod +x $INSTALLDIR/gin
 rm -fr $TEMPDIR
