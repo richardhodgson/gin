@@ -5,6 +5,10 @@ VERSION=0.0.7
 TEMPDIR=/tmp/gin
 INSTALLDIR=$HOME/bin
 
+if [[ ! "$PATH" =~ "$INSTALLDIR" ]]; then
+    INSTALLDIR='/usr/local/bin'
+fi
+
 mkdir -p $INSTALLDIR
 mkdir -p $TEMPDIR
 echo "Downloading Gin v$VERSION..."
