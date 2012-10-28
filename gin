@@ -69,6 +69,11 @@ case "$ACTION" in
 
         ;;
     "co"|"checkout" )
+
+        if [[ "$ARG1" == "-b" ]]; then
+            $0 branch "$ARG2"
+            ARG1="$ARG2"
+        fi
         repo_path "$ARG1" | xargs svn switch
         ;;
     "merge" )
@@ -134,7 +139,7 @@ case "$ACTION" in
         echo -e "usage: gin <command> [<args>]"
         echo -e "\n    Supported commands:\n"
         echo -e "\tbranch [<branchname>]\t\t\tCreate a branch or list branches for this project"
-        echo -e "\tcheckout <branchname>\t\t\tSwitch to a branch for this project"
+        echo -e "\tcheckout [-b] <branchname>\t\tSwitch to a branch for this project (-b will create the branch too)"
         echo -e "\tmerge <branchname>\t\t\tMerge <branchname> into the current branch"
         echo -e "\tlog [<branchname>]\t\t\tShow the commit logs (for <branchname>)"
         echo -e "\tdiff [<branchname> <branchname>]\tShow local changes or changes between branches"

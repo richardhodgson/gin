@@ -23,6 +23,10 @@ Checkout a branch.
 
     gin checkout some-feature
 
+Create a branch and switch to it.
+
+    gin checkout -b some-feature
+
 ### Merge
 
 Merge a branch into the current branch.
