@@ -137,11 +137,11 @@ case "$ACTION" in
         echo -e "\tcheckout <branchname>\t\t\tSwitch to a branch for this project"
         echo -e "\tmerge <branchname>\t\t\tMerge <branchname> into the current branch"
         echo -e "\tlog [<branchname>]\t\t\tShow the commit logs (for <branchname>)"
-        echo -e "\tdiff <branchname> [<branchname>]\tShow changes between branches"
+        echo -e "\tdiff [<branchname> <branchname>]\tShow local changes or changes between branches"
         echo -e "\n    Shortcuts:\n"
         echo -e "\tbranch\t\tbr"
         echo -e "\tcheckout\tco"
-        echo -e "\tcheckout\tdf"
+        echo -e "\tdiff\t\tdf"
         echo -e "\nSee https://github.com/richardhodgson/gin"
         ;;
 esac
