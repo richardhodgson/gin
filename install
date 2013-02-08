@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 VERSION=1.0.0
 
 TEMPDIR=/tmp/gin
@@ -12,7 +14,7 @@ fi
 mkdir -p $INSTALLDIR
 mkdir -p $TEMPDIR
 echo "Downloading Gin v$VERSION..."
-curl --location --progress-bar "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C $TEMPDIR
+curl --location --progress-bar --insecure "https://github.com/richardhodgson/gin/tarball/v$VERSION" | tar -xz -C $TEMPDIR
 cp $TEMPDIR/richardhodgson-gin-*/gin $INSTALLDIR/gin
 chmod +x $INSTALLDIR/gin
 rm -fr $TEMPDIR
